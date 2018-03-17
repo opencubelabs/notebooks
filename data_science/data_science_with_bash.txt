@@ -1,0 +1,88 @@
+Let's get some data first!
+
+$ wget http://stat-computing.org/dataexpo/2009/2007.csv.bz2
+
+dtrx will be used to easily extract the data
+
+$ sudo apt-get install dtrx
+
+$ dtrx 2007.csv.bz2
+
+$ ls
+
+$ mkdir ~/project
+
+$ cp ./2007.csv ~/project/
+
+$ cd ~/project
+
+$ cat 2007.csv
+
+$ head 2007.csv
+
+$ tail 2007.csv
+
+$ wc 2007.csv
+
+$ wc -c 2007.csv
+
+$ wc -w 2007.csv
+
+$ wc -l 2007.csv
+
+$ wc -L 2007.csv
+
+$ head 2007.csv > first_ten_lines.csv
+
+$ head -100 2007.csv
+
+$ head -100 2007.csv | wc -c
+
+$ cut -d',' -f1,2,3,15,16 2007.csv |head
+
+$ cd ..
+
+$ mkdir demo2
+
+$ cd ./demo2
+
+$ wget https://www.data36.com/demo1.csv --no-check-certificate
+
+$ wget https://www.data36.com/demo2.csv --no-check-certificate
+
+$ sort demo2.csv
+
+$ sort -n demo1.csv
+
+$ sort -r demo2.csv
+
+$ sort -n -u demo1.csv
+
+MAXIMUM delay in Arrivals
+
+$ cut -d',' -f15 2007.csv |sort -n |tail -1
+
+MINIMUM delay in Arrivals
+
+$ cut -d',' -f15 flightdelays.csv |sort -n |tail -1
+
+Introduction to nano editor
+
+Creating a Bash Script
+------------------------
+
+#!/usr/bin/env bash
+
+echo "The top 3 airports:"
+cut 2007.csv -d',' -f18 |sort |uniq -c |sort -n |tail -3
+
+echo "The number of unique airports:"
+cut 2007.csv -d',' -f18 |sort |uniq |wc -l
+
+=================================================================
+
+$ sudo pip install csvkit
+
+$ cat 2007.csv |head |cut -d',' -f12,13,14,15| csvlook
+
+$ cat demo1.csv | csvstat
