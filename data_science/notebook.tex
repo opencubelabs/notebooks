@@ -1,0 +1,1404 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{practical\_data\_science\_new}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{figure}[htbp]
+\centering
+\includegraphics{https://swizzlebooks.com/img/ocl/ds_intro.png}
+\caption{Practical Data Science}
+\end{figure}
+
+    \section{What is Data Science?}\label{what-is-data-science}
+
+\subsection{Data science \textasciitilde{} computer science +
+mathematics/statistics +
+visualization}\label{data-science-computer-science-mathematicsstatistics-visualization}
+
+\subsection{Outline of a data science
+project}\label{outline-of-a-data-science-project}
+
+\begin{itemize}
+\tightlist
+\item
+  Harvesting
+\item
+  Cleaning
+\item
+  Analyzing
+\item
+  Visualizing
+\item
+  Publishing
+\end{itemize}
+
+\subsection{Open Data Licenses}\label{open-data-licenses}
+
+\begin{itemize}
+\tightlist
+\item
+  Open Data Commons Public Domain Dedication and Licence (ODC PDDL) --
+  Public domain
+\item
+  Creative Commons CCZero -- Public domain
+\item
+  Open Data Commons Attribution License -- Attribution for data(bases)
+\item
+  Open Data Commons Open Database License(OdbL) - Attribution-ShareAlike
+  for data(bases)
+\end{itemize}
+
+\section{Data Science vs Data
+Analytics}\label{data-science-vs-data-analytics}
+
+\section{Why Python for Data
+Analytics?}\label{why-python-for-data-analytics}
+
+\subsubsection{Actively used Python tools for Data
+Analytics}\label{actively-used-python-tools-for-data-analytics}
+
+\begin{itemize}
+\tightlist
+\item
+  Pandas
+\item
+  Numpy
+\item
+  Matplotlib
+\end{itemize}
+
+\subsubsection{Jupyter Notebook}\label{jupyter-notebook}
+
+Jupyter Notebook is a web application that allows us to create and share
+documents that contain:
+
+\begin{itemize}
+\tightlist
+\item
+  live code (e.g. Python code)
+\item
+  visualizations
+\item
+  explanatory text (written in markdown syntax)
+\end{itemize}
+
+Jupyter Notebook is great for the following use cases:
+
+\begin{itemize}
+\tightlist
+\item
+  learn and try out Python
+\item
+  data processing / transformation
+\item
+  numeric simulation
+\item
+  statistical modeling
+\item
+  machine learning
+\end{itemize}
+
+Get Jupyter Notebook here: http://jupyter.org
+
+Run Jupyter:
+
+\begin{quote}
+jupyter notebook
+\end{quote}
+
+\subsubsection{Anaconda}\label{anaconda}
+
+Anaconda is a free and open source distribution of the Python and R
+programming languages for data science and machine learning related
+applications (large-scale data processing, predictive analytics,
+scientific computing), that aims to simplify package management and
+deployment.
+
+\subsubsection{Installing required
+modules}\label{installing-required-modules}
+
+\begin{quote}
+pip install numpy pandas matplotlib jupyter
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} importing the required modules in Python}
+        
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k+kn}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k+kn}{as} \PY{n+nn}{np}
+\end{Verbatim}
+
+
+    \subsection{pandas.Series}\label{pandas.series}
+
+Series is a one-dimensional labeled array capable of holding data of any
+type (integer, string, float, python objects, etc.).
+
+pandas.Series( data, index, dtype, copy)
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{data} - data takes various forms like ndarray, list, constants
+\item
+  \textbf{index} - Index values must be unique and hashable, same length
+  as data. Default np.arrange(n) if no index is passed.
+\item
+  \textbf{dtype} - dtype is for data type. If None, data type will be
+  inferred
+\item
+  \textbf{copy} - Copy data. Default False
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{s} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{nan}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{]}\PY{p}{)}
+        
+        \PY{n}{s}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:} 0    1.0
+        1    3.0
+        2    5.0
+        3    NaN
+        4    6.0
+        5    8.0
+        dtype: float64
+\end{Verbatim}
+            
+    \subsection{pandas.DataFrame}\label{pandas.dataframe}
+
+A Data frame is a two-dimensional data structure, i.e., data is aligned
+in a tabular fashion in rows and columns.
+
+Features of DataFrame
+
+\begin{itemize}
+\tightlist
+\item
+  Potentially columns are of different types
+\item
+  Size -- Mutable
+\item
+  Labeled axes (rows and columns)
+\item
+  Can Perform Arithmetic operations on rows and columns
+\end{itemize}
+
+pandas.DataFrame( data, index, columns, dtype, copy)
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{data} - data takes various forms like ndarray, series, map,
+  lists, dict, constants and also another DataFrame.
+\item
+  \textbf{index} - For the row labels, the Index to be used for the
+  resulting frame is Optional Default np.arrange(n) if no index is
+  passed.
+\item
+  \textbf{columns} - For column labels, the optional default syntax is -
+  np.arrange(n). This is only true if no index is passed.
+\item
+  \textbf{dtype} - Data type of each column.
+\item
+  \textbf{copy} - This is used for copying of data, default is False.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{dates} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{date\PYZus{}range}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{20130101}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{periods}\PY{o}{=}\PY{l+m+mi}{6}\PY{p}{)}
+        
+        \PY{n}{dates}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} DatetimeIndex(['2013-01-01', '2013-01-02', '2013-01-03', '2013-01-04',
+                       '2013-01-05', '2013-01-06'],
+                      dtype='datetime64[ns]', freq='D')
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{n}{dates}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{n+nb}{list}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ABCD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:}                    A         B         C         D
+        2013-01-01 -0.426111 -0.943785 -0.175049 -0.700578
+        2013-01-02  1.653556  0.478267  0.138193  1.248081
+        2013-01-03 -0.224567 -1.204317 -1.688728 -0.519291
+        2013-01-04 -0.464014  1.960344 -0.556716  0.989289
+        2013-01-05 -1.057691 -0.635663  1.191527 -0.657903
+        2013-01-06 -0.529635 -0.355414  0.850352  1.251976
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{} creating a DataFrame by passing a dict..}
+        
+        \PY{n}{df2} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{l+m+mf}{1.}\PY{p}{,} 
+                            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{B}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{pd}\PY{o}{.}\PY{n}{Timestamp}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{20130102}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} 
+                            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{index}\PY{o}{=}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{dtype}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float32}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} 
+                            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{D}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]} \PY{o}{*} \PY{l+m+mi}{4}\PY{p}{,}\PY{n}{dtype}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{int32}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} 
+                            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{E}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{pd}\PY{o}{.}\PY{n}{Categorical}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{test}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{test}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{,} 
+                            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{F}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{foo}\PY{l+s+s1}{\PYZsq{}} \PY{p}{\PYZcb{}}\PY{p}{)}
+        
+        \PY{n}{df2}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:}      A          B    C  D      E    F
+        0  1.0 2013-01-02  1.0  3   test  foo
+        1  1.0 2013-01-02  1.0  3  train  foo
+        2  1.0 2013-01-02  1.0  3   test  foo
+        3  1.0 2013-01-02  1.0  3  train  foo
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} each column of the above DataFrame has different data types}
+        
+        \PY{n}{df2}\PY{o}{.}\PY{n}{dtypes}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} A           float64
+        B    datetime64[ns]
+        C           float32
+        D             int32
+        E          category
+        F            object
+        dtype: object
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{} viewing data}
+         
+         \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)} \PY{c+c1}{\PYZsh{} first 2 rows from start}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:}                    A         B         C         D
+         2013-01-01 -0.426111 -0.943785 -0.175049 -0.700578
+         2013-01-02  1.653556  0.478267  0.138193  1.248081
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{df}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)} \PY{c+c1}{\PYZsh{} last 3 rows from end}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:}                    A         B         C         D
+         2013-01-04 -0.464014  1.960344 -0.556716  0.989289
+         2013-01-05 -1.057691 -0.635663  1.191527 -0.657903
+         2013-01-06 -0.529635 -0.355414  0.850352  1.251976
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{} Display the index}
+         
+         \PY{n}{df}\PY{o}{.}\PY{n}{index}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} DatetimeIndex(['2013-01-01', '2013-01-02', '2013-01-03', '2013-01-04',
+                        '2013-01-05', '2013-01-06'],
+                       dtype='datetime64[ns]', freq='D')
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{} Display columns}
+         
+         \PY{n}{df}\PY{o}{.}\PY{n}{columns}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} Index([u'A', u'B', u'C', u'D'], dtype='object')
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{} Underlying NumPy array}
+         
+         \PY{n}{df}\PY{o}{.}\PY{n}{values}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} array([[-0.42611111, -0.9437855 , -0.17504871, -0.70057824],
+                [ 1.65355561,  0.47826704,  0.13819304,  1.24808136],
+                [-0.22456656, -1.20431665, -1.68872829, -0.51929126],
+                [-0.46401395,  1.96034427, -0.5567157 ,  0.98928944],
+                [-1.05769055, -0.63566338,  1.19152734, -0.65790336],
+                [-0.52963479, -0.35541426,  0.85035161,  1.25197627]])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{} A quick statistic summary of our data}
+         
+         \PY{n}{df}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:}               A         B         C         D
+         count  6.000000  6.000000  6.000000  6.000000
+         mean  -0.174744 -0.116761 -0.040070  0.268596
+         std    0.937824  1.171442  1.033893  0.986336
+         min   -1.057691 -1.204317 -1.688728 -0.700578
+         25\%   -0.513230 -0.866755 -0.461299 -0.623250
+         50\%   -0.445063 -0.495539 -0.018428  0.234999
+         75\%   -0.274953  0.269847  0.672312  1.183383
+         max    1.653556  1.960344  1.191527  1.251976
+\end{Verbatim}
+            
+    \subsection{Let's get our hands dirty with some real
+data}\label{lets-get-our-hands-dirty-with-some-real-data}
+
+Download sample data from here:
+https://github.com/opencubelabs/notebooks/blob/master/data\_science/data/ign.csv
+
+\begin{quote}
+mkdir data mv \textasciitilde{}/Downloads ./data/ jupyter notebook
+\end{quote}
+
+We are going to use game review data by IGN, a leading game review
+platform. Data contains following columns:
+
+\begin{itemize}
+\tightlist
+\item
+  score\_phrase --- how IGN described the game in one word. This is
+  linked to the score it received.
+\item
+  title --- the name of the game.
+\item
+  url --- the URL where you can see the full review.
+\item
+  platform --- the platform the game was reviewed on (PC, PS4, etc).
+\item
+  score --- the score for the game, from 1.0 to 10.0.
+\item
+  genre --- the genre of the game.
+\item
+  editors\_choice --- N if the game wasn't an editor's choice, Y if it
+  was. This is tied to score.
+\item
+  release\_year --- the year the game was released.
+\item
+  release\_month --- the month the game was released.
+\item
+  release\_day --- the day the game was released.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{reviews} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{data/ign.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{k}{print} \PY{n}{reviews}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+   Unnamed: 0 score\_phrase                                              title  \textbackslash{}
+0           0      Amazing                            LittleBigPlanet PS Vita   
+1           1      Amazing  LittleBigPlanet PS Vita -- Marvel Super Hero E{\ldots}   
+2           2        Great                               Splice: Tree of Life   
+3           3        Great                                             NHL 13   
+4           4        Great                                             NHL 13   
+
+                                                 url          platform  score  \textbackslash{}
+0             /games/littlebigplanet-vita/vita-98907  PlayStation Vita    9.0   
+1  /games/littlebigplanet-ps-vita-marvel-super-he{\ldots}  PlayStation Vita    9.0   
+2                          /games/splice/ipad-141070              iPad    8.5   
+3                      /games/nhl-13/xbox-360-128182          Xbox 360    8.5   
+4                           /games/nhl-13/ps3-128181     PlayStation 3    8.5   
+
+        genre editors\_choice  release\_year  release\_month  release\_day  
+0  Platformer              Y          2012              9           12  
+1  Platformer              Y          2012              9           12  
+2      Puzzle              N          2012              9           12  
+3      Sports              N          2012              9           11  
+4      Sports              N          2012              9           11  
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{k}{print} \PY{n}{reviews}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+       Unnamed: 0 score\_phrase                                    title  \textbackslash{}
+18620       18620         Good                Tokyo Mirage Sessions \#FE   
+18621       18621      Amazing        LEGO Star Wars: The Force Awakens   
+18622       18622     Mediocre  Star Ocean: Integrity and Faithlessness   
+18623       18623  Masterpiece                                   Inside   
+18624       18624  Masterpiece                                   Inside   
+
+                                                     url       platform  \textbackslash{}
+18620  /games/fire-emblem-x-shin-megami-tensei/wii-u-{\ldots}          Wii U   
+18621  /games/lego-star-wars-the-force-awakens/ps4-20{\ldots}  PlayStation 4   
+18622                   /games/star-ocean-5/ps4-20035681  PlayStation 4   
+18623             /games/inside-playdead/xbox-one-121435       Xbox One   
+18624                 /games/inside-playdead/pc-20055740             PC   
+
+       score              genre editors\_choice  release\_year  release\_month  \textbackslash{}
+18620    7.6                RPG              N          2016              6   
+18621    9.0  Action, Adventure              Y          2016              6   
+18622    5.8                RPG              N          2016              6   
+18623   10.0          Adventure              Y          2016              6   
+18624   10.0          Adventure              Y          2016              6   
+
+       release\_day  
+18620           29  
+18621           29  
+18622           28  
+18623           28  
+18624           28  
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{reviews}\PY{o}{.}\PY{n}{shape} \PY{c+c1}{\PYZsh{} pandas.DataFrame.shape property to see row many rows and columns are in reviews}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:} (18625, 11)
+\end{Verbatim}
+            
+    \subsubsection{Indexing DataFrames with
+Pandas}\label{indexing-dataframes-with-pandas}
+
+\textbf{pandas.DataFrame.iloc}
+
+iloc method allows us to retrieve rows and columns by position.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{reviews}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{,}\PY{p}{:}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:}    Unnamed: 0 score\_phrase                                              title  \textbackslash{}
+         0           0      Amazing                            LittleBigPlanet PS Vita   
+         1           1      Amazing  LittleBigPlanet PS Vita -- Marvel Super Hero E{\ldots}   
+         2           2        Great                               Splice: Tree of Life   
+         3           3        Great                                             NHL 13   
+         4           4        Great                                             NHL 13   
+         
+                                                          url          platform  score  \textbackslash{}
+         0             /games/littlebigplanet-vita/vita-98907  PlayStation Vita    9.0   
+         1  /games/littlebigplanet-ps-vita-marvel-super-he{\ldots}  PlayStation Vita    9.0   
+         2                          /games/splice/ipad-141070              iPad    8.5   
+         3                      /games/nhl-13/xbox-360-128182          Xbox 360    8.5   
+         4                           /games/nhl-13/ps3-128181     PlayStation 3    8.5   
+         
+                 genre editors\_choice  release\_year  release\_month  release\_day  
+         0  Platformer              Y          2012              9           12  
+         1  Platformer              Y          2012              9           12  
+         2      Puzzle              N          2012              9           12  
+         3      Sports              N          2012              9           11  
+         4      Sports              N          2012              9           11  
+\end{Verbatim}
+            
+    Here are some indexing examples:
+
+\begin{itemize}
+\tightlist
+\item
+  reviews.iloc{[}:5,:{]} --- the first 5 rows, and all of the columns
+  for those rows.
+\item
+  reviews.iloc{[}:,:{]} --- the entire DataFrame.
+\item
+  reviews.iloc{[}5:,5:{]} --- rows from position 5 onwards, and columns
+  from position 5 onwards.
+\item
+  reviews.iloc{[}:,0{]} --- the first column, and all of the rows for
+  the column.
+\item
+  reviews.iloc{[}9,:{]} --- the 10th row, and all of the columns for
+  that row.
+\end{itemize}
+
+Now let's remove the first column from reviews as it does not contain
+any useful information.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{reviews} \PY{o}{=} \PY{n}{reviews}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+         \PY{n}{reviews}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}25}]:}   score\_phrase                                              title  \textbackslash{}
+         0      Amazing                            LittleBigPlanet PS Vita   
+         1      Amazing  LittleBigPlanet PS Vita -- Marvel Super Hero E{\ldots}   
+         2        Great                               Splice: Tree of Life   
+         3        Great                                             NHL 13   
+         4        Great                                             NHL 13   
+         
+                                                          url          platform  score  \textbackslash{}
+         0             /games/littlebigplanet-vita/vita-98907  PlayStation Vita    9.0   
+         1  /games/littlebigplanet-ps-vita-marvel-super-he{\ldots}  PlayStation Vita    9.0   
+         2                          /games/splice/ipad-141070              iPad    8.5   
+         3                      /games/nhl-13/xbox-360-128182          Xbox 360    8.5   
+         4                           /games/nhl-13/ps3-128181     PlayStation 3    8.5   
+         
+                 genre editors\_choice  release\_year  release\_month  release\_day  
+         0  Platformer              Y          2012              9           12  
+         1  Platformer              Y          2012              9           12  
+         2      Puzzle              N          2012              9           12  
+         3      Sports              N          2012              9           11  
+         4      Sports              N          2012              9           11  
+\end{Verbatim}
+            
+    \subsubsection{Indexing Using Labels in
+Pandas}\label{indexing-using-labels-in-pandas}
+
+\textbf{pandas.DataFrame.loc}
+
+A major advantage of Pandas over NumPy is that each of the columns and
+rows has a label. Working with column positions is possible, but it can
+be hard to keep track of which number corresponds to which column.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{} displaying first 5 reviews using loc}
+         
+         \PY{n}{reviews}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{,}\PY{p}{:}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:}   score\_phrase                                              title  \textbackslash{}
+         0      Amazing                            LittleBigPlanet PS Vita   
+         1      Amazing  LittleBigPlanet PS Vita -- Marvel Super Hero E{\ldots}   
+         2        Great                               Splice: Tree of Life   
+         3        Great                                             NHL 13   
+         4        Great                                             NHL 13   
+         5         Good                          Total War Battles: Shogun   
+         
+                                                          url          platform  score  \textbackslash{}
+         0             /games/littlebigplanet-vita/vita-98907  PlayStation Vita    9.0   
+         1  /games/littlebigplanet-ps-vita-marvel-super-he{\ldots}  PlayStation Vita    9.0   
+         2                          /games/splice/ipad-141070              iPad    8.5   
+         3                      /games/nhl-13/xbox-360-128182          Xbox 360    8.5   
+         4                           /games/nhl-13/ps3-128181     PlayStation 3    8.5   
+         5         /games/total-war-battles-shogun/mac-142565         Macintosh    7.0   
+         
+                 genre editors\_choice  release\_year  release\_month  release\_day  
+         0  Platformer              Y          2012              9           12  
+         1  Platformer              Y          2012              9           12  
+         2      Puzzle              N          2012              9           12  
+         3      Sports              N          2012              9           11  
+         4      Sports              N          2012              9           11  
+         5    Strategy              N          2012              9           11  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{reviews}\PY{o}{.}\PY{n}{index}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}27}]:} RangeIndex(start=0, stop=18625, step=1)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{c+c1}{\PYZsh{} Get row 10 to row 20 of reviews, and assign the result to some\PYZus{}reviews. Also, display the first 5 rows of some\PYZus{}reviews.}
+         
+         \PY{n}{some\PYZus{}reviews} \PY{o}{=} \PY{n}{reviews}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{:}\PY{l+m+mi}{20}\PY{p}{,}\PY{p}{]}
+         \PY{n}{some\PYZus{}reviews}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:}    score\_phrase                    title  \textbackslash{}
+         10         Good  Tekken Tag Tournament 2   
+         11         Good  Tekken Tag Tournament 2   
+         12         Good               Wild Blood   
+         13      Amazing        Mark of the Ninja   
+         14      Amazing        Mark of the Ninja   
+         
+                                                         url       platform  score  \textbackslash{}
+         10        /games/tekken-tag-tournament-2/ps3-124584  PlayStation 3    7.5   
+         11   /games/tekken-tag-tournament-2/xbox-360-124581       Xbox 360    7.5   
+         12                  /games/wild-blood/iphone-139363         iPhone    7.0   
+         13  /games/mark-of-the-ninja-135615/xbox-360-129276       Xbox 360    9.0   
+         14        /games/mark-of-the-ninja-135615/pc-143761             PC    9.0   
+         
+                         genre editors\_choice  release\_year  release\_month  release\_day  
+         10           Fighting              N          2012              9           11  
+         11           Fighting              N          2012              9           11  
+         12                NaN              N          2012              9           10  
+         13  Action, Adventure              Y          2012              9            7  
+         14  Action, Adventure              Y          2012              9            7  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{some\PYZus{}reviews}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{:}\PY{l+m+mi}{21}\PY{p}{,}\PY{p}{:}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}30}]:}    score\_phrase                            title  \textbackslash{}
+         10         Good          Tekken Tag Tournament 2   
+         11         Good          Tekken Tag Tournament 2   
+         12         Good                       Wild Blood   
+         13      Amazing                Mark of the Ninja   
+         14      Amazing                Mark of the Ninja   
+         15         Okay  Home: A Unique Horror Adventure   
+         16         Okay  Home: A Unique Horror Adventure   
+         17        Great              Avengers Initiative   
+         18     Mediocre             Way of the Samurai 4   
+         19         Good      JoJo's Bizarre Adventure HD   
+         
+                                                           url       platform  score  \textbackslash{}
+         10          /games/tekken-tag-tournament-2/ps3-124584  PlayStation 3    7.5   
+         11     /games/tekken-tag-tournament-2/xbox-360-124581       Xbox 360    7.5   
+         12                    /games/wild-blood/iphone-139363         iPhone    7.0   
+         13    /games/mark-of-the-ninja-135615/xbox-360-129276       Xbox 360    9.0   
+         14          /games/mark-of-the-ninja-135615/pc-143761             PC    9.0   
+         15  /games/home-a-unique-horror-adventure/mac-2001{\ldots}      Macintosh    6.5   
+         16    /games/home-a-unique-horror-adventure/pc-137135             PC    6.5   
+         17           /games/avengers-initiative/iphone-141579         iPhone    8.0   
+         18              /games/way-of-the-samurai-4/ps3-23516  PlayStation 3    5.5   
+         19     /games/jojos-bizarre-adventure/xbox-360-137717       Xbox 360    7.0   
+         
+                         genre editors\_choice  release\_year  release\_month  release\_day  
+         10           Fighting              N          2012              9           11  
+         11           Fighting              N          2012              9           11  
+         12                NaN              N          2012              9           10  
+         13  Action, Adventure              Y          2012              9            7  
+         14  Action, Adventure              Y          2012              9            7  
+         15          Adventure              N          2012              9            6  
+         16          Adventure              N          2012              9            6  
+         17             Action              N          2012              9            5  
+         18  Action, Adventure              N          2012              9            3  
+         19           Fighting              N          2012              9            3  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{reviews}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}31}]:} 0    9.0
+         1    9.0
+         2    8.5
+         3    8.5
+         4    8.5
+         5    7.0
+         Name: score, dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{reviews}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{,}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{release\PYZus{}year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]} \PY{c+c1}{\PYZsh{} we can specify more than one lable in a list}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:}    score  release\_year
+         0    9.0          2012
+         1    9.0          2012
+         2    8.5          2012
+         3    8.5          2012
+         4    8.5          2012
+         5    7.0          2012
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{c+c1}{\PYZsh{} each column and row in a Pandas DataFrame is a Series}
+         
+         \PY{n+nb}{type}\PY{p}{(}\PY{n}{reviews}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}33}]:} pandas.core.series.Series
+\end{Verbatim}
+            
+    \subsubsection{Introduction to Pandas DataFrame
+Methods}\label{introduction-to-pandas-dataframe-methods}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{reviews}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{title}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:} 0                              LittleBigPlanet PS Vita
+         1    LittleBigPlanet PS Vita -- Marvel Super Hero E{\ldots}
+         2                                 Splice: Tree of Life
+         3                                               NHL 13
+         4                                               NHL 13
+         Name: title, dtype: object
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{reviews}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}35}]:} 6.950459060402685
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{reviews}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}36}]:} score               6.950459
+         release\_year     2006.515329
+         release\_month       7.138470
+         release\_day        15.603866
+         dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{reviews}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}37}]:} 0        510.500
+         1        510.500
+         2        510.375
+         3        510.125
+         4        510.125
+         5        509.750
+         6        508.750
+         7        510.250
+         8        508.750
+         9        509.750
+         10       509.875
+         11       509.875
+         12       509.500
+         13       509.250
+         14       509.250
+         15       508.375
+         16       508.375
+         17       508.500
+         18       507.375
+         19       507.750
+         20       507.750
+         21       514.625
+         22       514.625
+         23       514.625
+         24       515.000
+         25       514.250
+         26       514.750
+         27       514.125
+         28       514.250
+         29       513.625
+                   {\ldots}   
+         18595    510.850
+         18596    510.875
+         18597    510.225
+         18598    510.700
+         18599    510.750
+         18600    512.600
+         18601    512.600
+         18602    512.600
+         18603    512.450
+         18604    512.400
+         18605    511.500
+         18606    508.600
+         18607    510.750
+         18608    510.350
+         18609    510.750
+         18610    510.250
+         18611    508.700
+         18612    509.200
+         18613    508.000
+         18614    515.050
+         18615    515.050
+         18616    508.375
+         18617    508.600
+         18618    515.025
+         18619    514.725
+         18620    514.650
+         18621    515.000
+         18622    513.950
+         18623    515.000
+         18624    515.000
+         Length: 18625, dtype: float64
+\end{Verbatim}
+            
+    Few handy methods for Series and DataFrames:
+
+\begin{itemize}
+\tightlist
+\item
+  pandas.DataFrame.corr --- finds the correlation between columns in a
+  DataFrame.
+\item
+  pandas.DataFrame.count --- counts the number of non-null values in
+  each DataFrame column.
+\item
+  pandas.DataFrame.max --- finds the highest value in each column.
+\item
+  pandas.DataFrame.min --- finds the lowest value in each column.
+\item
+  pandas.DataFrame.median --- finds the median of each column.
+\item
+  pandas.DataFrame.std --- finds the standard deviation of each column.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{reviews}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}38}]:}                   score  release\_year  release\_month  release\_day
+         score          1.000000      0.062716       0.007632     0.020079
+         release\_year   0.062716      1.000000      -0.115515     0.016867
+         release\_month  0.007632     -0.115515       1.000000    -0.067964
+         release\_day    0.020079      0.016867      -0.067964     1.000000
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{reviews}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{/} \PY{l+m+mi}{2}  \PY{c+c1}{\PYZsh{} DataFrame maths}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}39}]:} 0        4.50
+         1        4.50
+         2        4.25
+         3        4.25
+         4        4.25
+         5        3.50
+         6        1.50
+         7        4.50
+         8        1.50
+         9        3.50
+         10       3.75
+         11       3.75
+         12       3.50
+         13       4.50
+         14       4.50
+         15       3.25
+         16       3.25
+         17       4.00
+         18       2.75
+         19       3.50
+         20       3.50
+         21       3.75
+         22       3.75
+         23       3.75
+         24       4.50
+         25       3.50
+         26       4.50
+         27       3.75
+         28       4.00
+         29       3.25
+                  {\ldots} 
+         18595    2.20
+         18596    3.25
+         18597    2.45
+         18598    3.40
+         18599    3.50
+         18600    3.70
+         18601    3.70
+         18602    3.70
+         18603    3.90
+         18604    4.30
+         18605    3.00
+         18606    3.20
+         18607    3.50
+         18608    2.70
+         18609    4.00
+         18610    3.00
+         18611    2.90
+         18612    3.90
+         18613    4.00
+         18614    4.60
+         18615    4.60
+         18616    3.75
+         18617    4.20
+         18618    4.55
+         18619    3.95
+         18620    3.80
+         18621    4.50
+         18622    2.90
+         18623    5.00
+         18624    5.00
+         Name: score, Length: 18625, dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{c+c1}{\PYZsh{} Boolean indexing in Pandas}
+         
+         \PY{n}{score\PYZus{}filter} \PY{o}{=} \PY{n}{reviews}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{7}
+         \PY{n}{score\PYZus{}filter}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}42}]:} 0     True
+         1     True
+         2     True
+         3     True
+         4     True
+         5    False
+         6    False
+         7     True
+         8    False
+         9    False
+         Name: score, dtype: bool
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{c+c1}{\PYZsh{} select rows in reviews where score is greater than 7}
+         
+         \PY{n}{filtered\PYZus{}reviews} \PY{o}{=} \PY{n}{reviews}\PY{p}{[}\PY{n}{score\PYZus{}filter}\PY{p}{]}
+         \PY{n}{filtered\PYZus{}reviews}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}43}]:}   score\_phrase                                              title  \textbackslash{}
+         0      Amazing                            LittleBigPlanet PS Vita   
+         1      Amazing  LittleBigPlanet PS Vita -- Marvel Super Hero E{\ldots}   
+         2        Great                               Splice: Tree of Life   
+         3        Great                                             NHL 13   
+         4        Great                                             NHL 13   
+         
+                                                          url          platform  score  \textbackslash{}
+         0             /games/littlebigplanet-vita/vita-98907  PlayStation Vita    9.0   
+         1  /games/littlebigplanet-ps-vita-marvel-super-he{\ldots}  PlayStation Vita    9.0   
+         2                          /games/splice/ipad-141070              iPad    8.5   
+         3                      /games/nhl-13/xbox-360-128182          Xbox 360    8.5   
+         4                           /games/nhl-13/ps3-128181     PlayStation 3    8.5   
+         
+                 genre editors\_choice  release\_year  release\_month  release\_day  
+         0  Platformer              Y          2012              9           12  
+         1  Platformer              Y          2012              9           12  
+         2      Puzzle              N          2012              9           12  
+         3      Sports              N          2012              9           11  
+         4      Sports              N          2012              9           11  
+\end{Verbatim}
+            
+    Let's try multiple conditions
+
+\begin{itemize}
+\tightlist
+\item
+  Setup a filter with two conditions:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Check if score is greater than 7.
+  \item
+    Check if platform equals Xbox One
+  \end{itemize}
+\item
+  Apply the filter to reviews to get only the rows we want.
+\item
+  Use the head method to print the first 5 rows of filtered\_reviews
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{n}{xbox\PYZus{}one\PYZus{}filter} \PY{o}{=} \PY{p}{(}\PY{n}{reviews}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{7}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{reviews}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{platform}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Xbox One}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{filtered\PYZus{}reviews} \PY{o}{=} \PY{n}{reviews}\PY{p}{[}\PY{n}{xbox\PYZus{}one\PYZus{}filter}\PY{p}{]}
+         \PY{n}{filtered\PYZus{}reviews}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}44}]:}       score\_phrase                     title  \textbackslash{}
+         17137      Amazing                 Gone Home   
+         17197      Amazing            Rayman Legends   
+         17295      Amazing  LEGO Marvel Super Heroes   
+         17313        Great             Dead Rising 3   
+         17317        Great           Killer Instinct   
+         
+                                                              url  platform  score  \textbackslash{}
+         17137                 /games/gone-home/xbox-one-20014361  Xbox One    9.5   
+         17197            /games/rayman-legends/xbox-one-20008449  Xbox One    9.5   
+         17295  /games/lego-marvel-super-heroes/xbox-one-20000826  Xbox One    9.0   
+         17313               /games/dead-rising-3/xbox-one-124306  Xbox One    8.3   
+         17317      /games/killer-instinct-2013/xbox-one-20000538  Xbox One    8.4   
+         
+                     genre editors\_choice  release\_year  release\_month  release\_day  
+         17137  Simulation              Y          2013              8           15  
+         17197  Platformer              Y          2013              8           26  
+         17295      Action              Y          2013             10           22  
+         17313      Action              N          2013             11           18  
+         17317    Fighting              N          2013             11           18  
+\end{Verbatim}
+            
+    \subsubsection{Pandas Plotting}\label{pandas-plotting}
+
+In the below code, we:
+
+\begin{itemize}
+\tightlist
+\item
+  Call \%matplotlib inline to set up plotting inside a Jupyter notebook.
+\item
+  Filter reviews to only have data about the Xbox One.
+\item
+  Plot the score column.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+         \PY{n}{reviews}\PY{p}{[}\PY{n}{reviews}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{platform}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Xbox One}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}46}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7f54e5aa1610>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_45_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{n}{reviews}\PY{p}{[}\PY{n}{reviews}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{platform}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Xbox One}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}47}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7f54e39d0850>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_46_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{n}{reviews}\PY{p}{[}\PY{n}{reviews}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{platform}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PlayStation 4}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hist}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}48}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7f54e5a44a90>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_47_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{n}{filtered\PYZus{}reviews}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}49}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7f54e38d42d0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_48_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{figure}[htbp]
+\centering
+\includegraphics{https://swizzlebooks.com/img/ocl/ty.png}
+\caption{Thank You}
+\end{figure}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
